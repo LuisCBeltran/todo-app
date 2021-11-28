@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <link rel="stylesheet" href="style.css">
     <title>ToDos App</title>
 </head>
 <body>
     <h1>ToDos</h1>
-    <p>Learn more JavaScript.</p>
-    <p>Practice Yoga.</p>
-    <p>Watch a movie with my wife.</p>
-    <p>Clean my desk.</p>
-    <p>Wash my Rebook tennis.</p>
+    <input type="text" id="search-todo" placeholder="Search for todo">
+    <form class="add-todo-form" id="addTodoForm">
+        <input type="text" name="addTodoInput" placeholder="Add todo!">
+        <button class="add-todo-button">Add todo</button>
+    </form>
+    <h2>Filtered Todos</h2>
+    <div id="filtered-todos"></div>
+    <h2>Todos</h2>
+    <div id="todos"></div>
     <script src="script.js"></script>
 </body>
 </html>
