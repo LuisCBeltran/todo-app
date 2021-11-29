@@ -21,20 +21,6 @@ const filters = {
     searchText: ''
 }
 
-// Filter uncompleted todos
-
-let uncompletedTodos = function (array) {
-    return array.filter(function (object) {
-        return object.completed === false
-    })
-}
-
-// Number of uncompleted todos
-
-let numOfTodosLeft = document.createElement('h2')
-numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
-document.querySelector('body').appendChild(numOfTodosLeft)
-
 // Render filtered todos
 
 let filterTodos = function (array, filter) {
@@ -72,12 +58,6 @@ let createTodos = function (array) {
 
 createTodos(todos)
 
-// Add todo
-
-let addTodo = function (todo) {
-
-}
-
 // Button event listener
 
 document.querySelector('#addTodoForm').addEventListener('submit', function (e) {
@@ -87,6 +67,10 @@ document.querySelector('#addTodoForm').addEventListener('submit', function (e) {
     e.target.elements.addTodoInput.value = ''
     document.querySelector('#todos').innerHTML = ''
     createTodos(todos)
+    let numOfTodosLeft = document.createElement('h2')
+    document.querySelector('#leftTodos').innerHTML = ''
+    numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
+    document.querySelector('#leftTodos').appendChild(numOfTodosLeft)
 })
 
 // Input event listener
@@ -95,3 +79,17 @@ document.querySelector('#search-todo').addEventListener('input', function (e) {
     filters.searchText = e.target.value
     filterTodos(todos, filters)
 })
+
+// Filter uncompleted todos
+
+let uncompletedTodos = function (array) {
+    return array.filter(function (object) {
+        return object.completed === false
+    })
+}
+
+// Number of uncompleted todos
+
+let numOfTodosLeft = document.createElement('h2')
+numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
+document.querySelector('#leftTodos').appendChild(numOfTodosLeft)
