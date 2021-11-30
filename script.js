@@ -93,3 +93,15 @@ let uncompletedTodos = function (array) {
 let numOfTodosLeft = document.createElement('h2')
 numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
 document.querySelector('#leftTodos').appendChild(numOfTodosLeft)
+
+// Hide completed with checkbox
+
+document.querySelector('#checkbox').addEventListener('change', function (e) {
+    if (!e.target.checked) {
+        document.querySelector('#todos').innerHTML = ''
+        createTodos(todos)
+    } else {
+        document.querySelector('#todos').innerHTML = ''
+        createTodos(uncompletedTodos(todos))
+    }
+})
