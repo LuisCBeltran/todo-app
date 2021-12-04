@@ -15,7 +15,7 @@ createTodos(todos)
 document.querySelector('#addTodoForm').addEventListener('submit', function (e) {
     e.preventDefault()
     let todo = e.target.elements.addTodoInput.value
-    todos.push({text: todo, completed: false})
+    todos.push({id: uuidv4(), text: todo, completed: false})
     e.target.elements.addTodoInput.value = ''
     document.querySelector('#todos').innerHTML = ''
     createTodos(todos)

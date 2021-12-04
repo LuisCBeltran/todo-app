@@ -1,4 +1,4 @@
-//Fetch existing todos from localStorage
+// Fetch existing todos from localStorage
 
 const getSavedTodos = function () {
     const todosJSON = localStorage.getItem('todos')
@@ -10,10 +10,21 @@ const getSavedTodos = function () {
     }
 }
 
-//Save todos to localStorage
+// Save todos to localStorage
 
 const saveTodos = function (array) {
     localStorage.setItem('todos', JSON.stringify(array))
+}
+
+// Remove todo 
+
+const removeTodo = function (id) {
+    const todoIndex = todos.findIndex(function (todo) {
+        return todo.id === id
+    })
+    if (todoIndex > -1) {
+        todos.splice(todoIndex, 1)
+    }
 }
 
 // Render filtered todos
@@ -55,9 +66,44 @@ let createTodos = function (array) {
         todoContainer.appendChild(todoRemoveBtn)
 
         // Give contents to each element
-        checkCompleted.setAttribute('type', 'checkbox')
+        if (object.completed === true) {
+            checkCompleted.setAttribute('type', 'checkbox')
+            checkCompleted.setAttribute('checked', true)
+        } else {
+            checkCompleted.setAttribute('type', 'checkbox')
+        }
+
         todo.textContent = object.text
         todoRemoveBtn.textContent = 'X'
+
+        // Event listener to remove
+        todoRemoveBtn.addEventListener('click', function () {
+            removeTodo(object.id)
+            saveTodos(todos)
+            document.querySelector('#todos').innerHTML = ''
+            createTodos(todos)
+            document.querySelector('#leftTodos').innerHTML = ''
+            numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
+            document.querySelector('#leftTodos').appendChild(numOfTodosLeft)
+        })
+
+        // Event listener checkbox
+
+        checkCompleted.addEventListener('change', function (e) { 
+            const todoIndex = todos.findIndex(function (todo) {
+                return todo.id === object.id
+            })
+            if (e.target.checked) {
+                todos[todoIndex].completed = true
+                saveTodos(todos)
+            } else {
+                todos[todoIndex].completed = false
+                saveTodos(todos)
+            }
+            document.querySelector('#leftTodos').innerHTML = ''
+            numOfTodosLeft.textContent = `You have ${uncompletedTodos(todos).length} todos left.`
+            document.querySelector('#leftTodos').appendChild(numOfTodosLeft)
+        })
 
         document.querySelector('#todos').appendChild(todoContainer)
     })
